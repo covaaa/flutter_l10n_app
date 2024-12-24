@@ -12,5 +12,6 @@
     "**/.dart_tool": true,
     "**/.fvm": true
   },
-  "explorerExclude.backup": {}
+  "explorerExclude.backup": {},
+  "dart.flutterSdkPath": ".fvm/versions/3.27.1"
 }
