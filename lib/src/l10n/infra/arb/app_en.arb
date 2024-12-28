@@ -12,6 +12,10 @@
   "@title": {
     "description": "title"
   },
+  "done": "Done",
+  "@done": {
+    "description": "done"
+  },
   "increment": "Increment",
   "@increment": {
     "description": "increment"
