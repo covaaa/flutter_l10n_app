@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:flutter_l10n_app/src/l10n/l10n.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 extension WidgetTesterX on WidgetTester {
