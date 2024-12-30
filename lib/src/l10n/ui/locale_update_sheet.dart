@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:flutter_l10n_app/src/account/account.dart';
 import 'package:flutter_l10n_app/src/l10n/domain/locale.dart';
-import 'package:flutter_l10n_app/src/l10n/state/readers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fpdart/fpdart.dart' as fpdart;
+import 'package:fpdart/fpdart.dart';
 
 class LocaleUpdateSheet extends ConsumerStatefulWidget {
-  const LocaleUpdateSheet(this.locale, {super.key});
+  const LocaleUpdateSheet(this.preference, {super.key});
 
-  final SealedLocale locale;
+  final Preference preference;
 
   static Future<void> show(
     BuildContext context, {
-    required SealedLocale locale,
+    required Preference preference,
   }) {
     final theme = Theme.of(context);
     return showModalBottomSheet<void>(
@@ -22,7 +22,7 @@ class LocaleUpdateSheet extends ConsumerStatefulWidget {
       useRootNavigator: true,
       isScrollControlled: true,
       backgroundColor: theme.colorScheme.surface,
-      builder: (context) => LocaleUpdateSheet(locale),
+      builder: (context) => LocaleUpdateSheet(preference),
     );
   }
 
@@ -33,33 +33,34 @@ class LocaleUpdateSheet extends ConsumerStatefulWidget {
 }
 
 class _LocaleUpdateSheetState extends ConsumerState<LocaleUpdateSheet> {
-  late fpdart.Option<SealedLocale> locale;
+  late Option<SealedLocale> locale;
 
   @override
   void initState() {
     super.initState();
-    locale = fpdart.some(widget.locale);
+    locale = widget.preference.locale;
   }
 
   @override
   Widget build(BuildContext context) {
     const localeEn = LocaleEn();
     const localeJa = LocaleJa();
-
+    final l10n = L10n.of(context);
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
     final titleLarge = textTheme.titleLarge;
 
     void onChanged(SealedLocale? newLocale) {
-      return setState(() => locale = fpdart.optionOf(newLocale));
+      return setState(() => locale = optionOf(newLocale));
     }
 
     void readLocale() {
       locale.map(
-        (some) {
-          final reader = ref.read(readLocaleProvider.notifier);
-          some.when(en: reader.en, ja: reader.ja);
-          return Navigator.pop(context);
+        (newLocale) {
+          final updater = ref.read(updatePreferenceProvider.notifier);
+          final newPreference = widget.preference.copyWith(some(newLocale));
+          if (widget.preference != newPreference) updater.run(newPreference);
+          return Navigator.of(context, rootNavigator: true).pop();
         },
       );
     }
@@ -70,9 +71,7 @@ class _LocaleUpdateSheetState extends ConsumerState<LocaleUpdateSheet> {
           SliverAppBar(
             scrolledUnderElevation: 0,
             titleTextStyle: titleLarge,
-            title: locale.map((some) {
-              return Text(lookupL10n(some).language);
-            }).toNullable(),
+            title: Text(locale.match(() => l10n, lookupL10n).language),
           ),
           SliverList(
             delegate: SliverChildListDelegate(
@@ -94,9 +93,7 @@ class _LocaleUpdateSheetState extends ConsumerState<LocaleUpdateSheet> {
                 Center(
                   child: FilledButton.tonal(
                     onPressed: readLocale,
-                    child: locale.map((some) {
-                      return Text(lookupL10n(some).done);
-                    }).toNullable(),
+                    child: Text(locale.match(() => l10n, lookupL10n).done),
                   ),
                 ),
               ],

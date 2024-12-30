@@ -13,5 +13,8 @@
     "**/.fvm": true
   },
   "explorerExclude.backup": {},
-  "dart.flutterSdkPath": ".fvm/versions/3.27.1"
+  "dart.flutterSdkPath": ".fvm/versions/3.27.1",
+  "dart.flutterRunAdditionalArgs": [
+    "--no-enable-impeller"
+  ]
 }

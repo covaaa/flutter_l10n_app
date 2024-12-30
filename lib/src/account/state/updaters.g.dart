@@ -4,26 +4,27 @@
 
 // coverage:ignore-file
 
-part of 'readers.dart';
+part of 'updaters.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$readLocaleHash() => r'a58277c54cd6b05e1df4bc26e0adf2b577c8cf17';
+String _$updatePreferenceHash() => r'59fd6eabf570da87f7ba02dc3e57dc07b59fe849';
 
-/// See also [ReadLocale].
-@ProviderFor(ReadLocale)
-final readLocaleProvider =
-    AutoDisposeNotifierProvider<ReadLocale, SealedLocale>.internal(
-  ReadLocale.new,
-  name: r'readLocaleProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$readLocaleHash,
+/// See also [UpdatePreference].
+@ProviderFor(UpdatePreference)
+final updatePreferenceProvider =
+    AutoDisposeAsyncNotifierProvider<UpdatePreference, Option<Unit>>.internal(
+  UpdatePreference.new,
+  name: r'updatePreferenceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$updatePreferenceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$ReadLocale = AutoDisposeNotifier<SealedLocale>;
+typedef _$UpdatePreference = AutoDisposeAsyncNotifier<Option<Unit>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
