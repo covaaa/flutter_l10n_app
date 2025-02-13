@@ -1,8 +1,5 @@
 {
-  "dart.flutterRunAdditionalArgs": [
-    "--no-enable-impeller"
-  ],
-  "dart.flutterSdkPath": ".fvm/versions/3.27.4",
+  "dart.flutterSdkPath": ".fvm/versions/3.29.0",
   "explorerExclude.backup": {},
   "files.exclude": {
     "**/*.freezed.dart": true,

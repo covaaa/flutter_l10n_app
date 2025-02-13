@@ -1,0 +1,1 @@
+/Users/cova/projects/flutter_l10n_app/build/app/intermediates/cxx/Debug/1r2i4gbs/obj/x86_64
