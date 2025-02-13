@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_l10n_app/gen/l10n/l10n.dart';
 import 'package:flutter_l10n_app/src/account/account.dart';
-import 'package:flutter_l10n_app/src/l10n/l10n.dart';
 import 'package:flutter_l10n_app/src/locale/domain/locale.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';

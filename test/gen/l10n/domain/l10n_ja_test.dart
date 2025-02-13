@@ -1,4 +1,4 @@
-import 'package:flutter_l10n_app/src/l10n/domain/l10n_ja.dart';
+import 'package:flutter_l10n_app/gen/l10n/domain/l10n_ja.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
