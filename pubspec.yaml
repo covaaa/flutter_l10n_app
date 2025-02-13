@@ -1,10 +1,10 @@
 name: flutter_l10n_app
-description: "Flutter example project with l10n."
-publish_to: "none"
+description: 'Flutter example project with l10n.'
+publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.6.0"
+  sdk: '>=3.6.0'
 
 dependencies:
   drift: ^2.24.0
@@ -36,4 +36,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  generate: true

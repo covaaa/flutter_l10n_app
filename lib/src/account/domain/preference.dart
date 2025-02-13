@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:equatable/equatable.dart';
 import 'package:flutter_l10n_app/src/drift/store/store.dart' as store;
-import 'package:flutter_l10n_app/src/l10n/l10n.dart';
+import 'package:flutter_l10n_app/src/locale/locale.dart';
 import 'package:fpdart/fpdart.dart';
 
 final class Preference extends Equatable {

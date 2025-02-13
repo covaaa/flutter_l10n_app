@@ -1,4 +1,4 @@
-import 'package:flutter_l10n_app/src/l10n/domain/locale.dart';
+import 'package:flutter_l10n_app/src/locale/domain/locale.dart';
 
 enum LocaleData {
   en,

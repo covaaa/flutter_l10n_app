@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_l10n_app/src/drift/connects/connects.dart';
 import 'package:flutter_l10n_app/src/drift/store/infra/database.dart';
 import 'package:flutter_l10n_app/src/drift/store/infra/table.dart';
-import 'package:flutter_l10n_app/src/l10n/l10n.dart';
+import 'package:flutter_l10n_app/src/locale/locale.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'store.g.dart';

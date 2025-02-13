@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_l10n_app/src/account/account.dart';
 import 'package:flutter_l10n_app/src/home/home_page.dart';
-import 'package:flutter_l10n_app/src/l10n/l10n.dart';
+import 'package:flutter_l10n_app/src/locale/locale.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import '../../extensions/tester_x.dart';

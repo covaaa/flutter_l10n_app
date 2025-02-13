@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:flutter_l10n_app/src/account/account.dart';
 import 'package:flutter_l10n_app/src/drift/store/store.dart' hide Preference;
-import 'package:flutter_l10n_app/src/l10n/l10n.dart';
+import 'package:flutter_l10n_app/src/locale/locale.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';

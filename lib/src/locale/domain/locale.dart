@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_l10n_app/src/l10n/infra/locale_data.dart';
+import 'package:flutter_l10n_app/src/locale/infra/locale_data.dart';
 
 final class LocaleEn extends SealedLocale {
   const LocaleEn() : super._(code);

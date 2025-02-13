@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_l10n_app/src/account/account.dart';
-import 'package:flutter_l10n_app/src/l10n/l10n.dart';
+import 'package:flutter_l10n_app/src/locale/locale.dart';
 import 'package:fpdart/fpdart.dart';
 import 'platforms.dart';
 
