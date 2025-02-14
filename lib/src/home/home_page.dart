@@ -33,33 +33,32 @@ class _HomePageState extends ConsumerState<HomePage> {
         backgroundColor: theme.colorScheme.inversePrimary,
         title: Text(l10n.title),
         actions: asyncPreference.whenOrNull(
-          data: (preference) => [
-            IconButton(
-              onPressed: () => LocaleUpdateSheet.show(
-                context,
-                preference: preference.copyWith(
-                  some(
-                    preference.locale.getOrElse(
-                      () => SealedLocale.fromLocale(
-                        Localizations.localeOf(context),
+          data:
+              (preference) => [
+                IconButton(
+                  onPressed:
+                      () => LocaleUpdateSheet.show(
+                        context,
+                        preference: preference.copyWith(
+                          some(
+                            preference.locale.getOrElse(
+                              () => SealedLocale.fromLocale(
+                                Localizations.localeOf(context),
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
+                  icon: const Icon(Icons.translate),
                 ),
-              ),
-              icon: const Icon(Icons.translate),
-            ),
-          ],
+              ],
         ),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              l10n.increment_title,
-              style: theme.textTheme.titleMedium,
-            ),
+            Text(l10n.increment_title, style: theme.textTheme.titleMedium),
             Text(
               '$_counter ${l10n.increment_suffix}',
               style: theme.textTheme.headlineMedium,

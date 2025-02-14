@@ -55,14 +55,12 @@ class _LocaleUpdateSheetState extends ConsumerState<LocaleUpdateSheet> {
     }
 
     void readLocale() {
-      locale.map(
-        (newLocale) {
-          final updater = ref.read(updatePreferenceProvider.notifier);
-          final newPreference = widget.preference.copyWith(some(newLocale));
-          if (widget.preference != newPreference) updater.run(newPreference);
-          return Navigator.of(context, rootNavigator: true).pop();
-        },
-      );
+      locale.map((newLocale) {
+        final updater = ref.read(updatePreferenceProvider.notifier);
+        final newPreference = widget.preference.copyWith(some(newLocale));
+        if (widget.preference != newPreference) updater.run(newPreference);
+        return Navigator.of(context, rootNavigator: true).pop();
+      });
     }
 
     return Scaffold(
@@ -74,30 +72,28 @@ class _LocaleUpdateSheetState extends ConsumerState<LocaleUpdateSheet> {
             title: Text(locale.match(() => l10n, lookupL10n).language),
           ),
           SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                RadioListTile<SealedLocale>(
-                  key: localeEn.key,
-                  value: localeEn,
-                  onChanged: onChanged,
-                  groupValue: locale.toNullable(),
-                  title: Text(lookupL10n(localeEn).locale),
+            delegate: SliverChildListDelegate([
+              RadioListTile<SealedLocale>(
+                key: localeEn.key,
+                value: localeEn,
+                onChanged: onChanged,
+                groupValue: locale.toNullable(),
+                title: Text(lookupL10n(localeEn).locale),
+              ),
+              RadioListTile<SealedLocale>(
+                key: localeJa.key,
+                value: localeJa,
+                onChanged: onChanged,
+                groupValue: locale.toNullable(),
+                title: Text(lookupL10n(localeJa).locale),
+              ),
+              Center(
+                child: FilledButton.tonal(
+                  onPressed: readLocale,
+                  child: Text(locale.match(() => l10n, lookupL10n).done),
                 ),
-                RadioListTile<SealedLocale>(
-                  key: localeJa.key,
-                  value: localeJa,
-                  onChanged: onChanged,
-                  groupValue: locale.toNullable(),
-                  title: Text(lookupL10n(localeJa).locale),
-                ),
-                Center(
-                  child: FilledButton.tonal(
-                    onPressed: readLocale,
-                    child: Text(locale.match(() => l10n, lookupL10n).done),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ]),
           ),
         ],
       ),

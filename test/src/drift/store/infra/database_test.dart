@@ -9,21 +9,16 @@ void main() {
   late Fakes fakes;
   late ProviderContainer container;
 
-  setUp(
-    () {
-      TestWidgetsFlutterBinding.ensureInitialized();
-      fakes = Fakes();
-      PathProviderPlatform.instance = fakes.platform;
-      container = ProviderContainer();
-    },
-  );
+  setUp(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    fakes = Fakes();
+    PathProviderPlatform.instance = fakes.platform;
+    container = ProviderContainer();
+  });
 
   tearDown(() => container.dispose());
 
-  test(
-    'should provide instance',
-    () async {
-      expect(container.read(driftDatabaseProvider), isA<QueryExecutor>());
-    },
-  );
+  test('should provide instance', () async {
+    expect(container.read(driftDatabaseProvider), isA<QueryExecutor>());
+  });
 }

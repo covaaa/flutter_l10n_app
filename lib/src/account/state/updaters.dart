@@ -17,9 +17,9 @@ class UpdatePreference extends _$UpdatePreference with Loads {
 
   Future<Unit> run(Preference preference) async {
     return super.load(
-      Task(() async => _service.updatePreference(preference)).map(
-        (_) => some(unit),
-      ),
+      Task(
+        () async => _service.updatePreference(preference),
+      ).map((_) => some(unit)),
     );
   }
 }

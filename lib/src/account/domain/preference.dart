@@ -40,7 +40,8 @@ final class Preference extends Equatable {
       required DateTime updatedAt,
       drift.Value<int> id,
       drift.Value<LocaleData?> locale,
-    }) companion,
+    })
+    companion,
   ) {
     final date = DateTime.now();
     return companion(
@@ -56,7 +57,8 @@ final class Preference extends Equatable {
       drift.Value<LocaleData?> locale,
       drift.Value<DateTime> createdAt,
       drift.Value<DateTime> updatedAt,
-    }) companion,
+    })
+    companion,
   ) {
     return companion(
       locale: drift.Value(locale.map((some) => some.data).toNullable()),

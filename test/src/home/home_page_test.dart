@@ -17,18 +17,16 @@ void main() {
   late LocaleJa localeJa;
   late MockPreferenceService mockPreferenceService;
 
-  setUp(
-    () {
-      fakes = Fakes();
-      preferenceNone = fakes.preferenceNone;
-      preferenceEn = fakes.preferenceEn;
-      preferenceJa = fakes.preferenceJa;
-      localeEn = fakes.localeEn;
-      localeJa = fakes.localeJa;
-      mockPreferenceService = MockPreferenceService();
-      registerFallbackValue(preferenceEn);
-    },
-  );
+  setUp(() {
+    fakes = Fakes();
+    preferenceNone = fakes.preferenceNone;
+    preferenceEn = fakes.preferenceEn;
+    preferenceJa = fakes.preferenceJa;
+    localeEn = fakes.localeEn;
+    localeJa = fakes.localeJa;
+    mockPreferenceService = MockPreferenceService();
+    registerFallbackValue(preferenceEn);
+  });
 
   Future<void> mockUpdatePreferenceEn() {
     return mockPreferenceService.updatePreference(preferenceEn);
@@ -42,10 +40,28 @@ void main() {
     return mockPreferenceService.emitsPreference();
   }
 
-  testWidgets(
-    'counter increments smoke test',
-    (tester) async {
+  testWidgets('counter increments smoke test', (tester) async {
+    when(mockEmitsPreference).thenAnswer((i) => Stream.value(preferenceEn));
+    await tester.pumpApp(
+      overrides: [
+        preferenceServiceProvider.overrideWithValue(mockPreferenceService),
+      ],
+      child: const HomePage(),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('0 times'), findsOneWidget);
+    expect(find.text('1 times'), findsNothing);
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pump();
+    expect(find.text('0 times'), findsNothing);
+    expect(find.text('1 times'), findsOneWidget);
+    verify(mockEmitsPreference).called(1);
+  });
+
+  group('update preference', () {
+    testWidgets('should success', (tester) async {
       when(mockEmitsPreference).thenAnswer((i) => Stream.value(preferenceEn));
+      when(mockUpdatePreferenceJa).thenAnswer((i) async {});
       await tester.pumpApp(
         overrides: [
           preferenceServiceProvider.overrideWithValue(mockPreferenceService),
@@ -53,100 +69,55 @@ void main() {
         child: const HomePage(),
       );
       await tester.pumpAndSettle();
-      expect(find.text('0 times'), findsOneWidget);
-      expect(find.text('1 times'), findsNothing);
-      await tester.tap(find.byIcon(Icons.add));
-      await tester.pump();
-      expect(find.text('0 times'), findsNothing);
-      expect(find.text('1 times'), findsOneWidget);
+      expect(find.byIcon(Icons.translate), findsOneWidget);
+      await tester.tap(find.byIcon(Icons.translate));
+      await tester.pumpAndSettle();
+      expect(find.byType(LocaleUpdateSheet), findsOneWidget);
+      await tester.tap(find.byKey(localeJa.key));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(FilledButton));
       verify(mockEmitsPreference).called(1);
-    },
-  );
-
-  group(
-    'update preference',
-    () {
-      testWidgets(
-        'should success',
-        (tester) async {
-          when(mockEmitsPreference).thenAnswer(
-            (i) => Stream.value(preferenceEn),
-          );
-          when(mockUpdatePreferenceJa).thenAnswer((i) async {});
-          await tester.pumpApp(
-            overrides: [
-              preferenceServiceProvider.overrideWithValue(
-                mockPreferenceService,
-              ),
-            ],
-            child: const HomePage(),
-          );
-          await tester.pumpAndSettle();
-          expect(find.byIcon(Icons.translate), findsOneWidget);
-          await tester.tap(find.byIcon(Icons.translate));
-          await tester.pumpAndSettle();
-          expect(find.byType(LocaleUpdateSheet), findsOneWidget);
-          await tester.tap(find.byKey(localeJa.key));
-          await tester.pumpAndSettle();
-          await tester.tap(find.byType(FilledButton));
-          verify(mockEmitsPreference).called(1);
-          verify(mockUpdatePreferenceJa).called(1);
-        },
+      verify(mockUpdatePreferenceJa).called(1);
+    });
+    testWidgets('should failed', (tester) async {
+      when(mockEmitsPreference).thenAnswer((i) => Stream.value(preferenceJa));
+      when(mockUpdatePreferenceEn).thenThrow(Error());
+      await tester.pumpApp(
+        overrides: [
+          preferenceServiceProvider.overrideWithValue(mockPreferenceService),
+        ],
+        child: const HomePage(),
       );
-      testWidgets(
-        'should failed',
-        (tester) async {
-          when(mockEmitsPreference).thenAnswer(
-            (i) => Stream.value(preferenceJa),
-          );
-          when(mockUpdatePreferenceEn).thenThrow(Error());
-          await tester.pumpApp(
-            overrides: [
-              preferenceServiceProvider.overrideWithValue(
-                mockPreferenceService,
-              ),
-            ],
-            child: const HomePage(),
-          );
-          await tester.pumpAndSettle();
-          expect(find.byIcon(Icons.translate), findsOneWidget);
-          await tester.tap(find.byIcon(Icons.translate));
-          await tester.pumpAndSettle();
-          expect(find.byType(LocaleUpdateSheet), findsOneWidget);
-          await tester.tap(find.byKey(localeEn.key));
-          await tester.pumpAndSettle();
-          await tester.tap(find.byType(FilledButton));
-          verify(mockEmitsPreference).called(1);
-          verify(mockUpdatePreferenceEn).called(1);
-        },
+      await tester.pumpAndSettle();
+      expect(find.byIcon(Icons.translate), findsOneWidget);
+      await tester.tap(find.byIcon(Icons.translate));
+      await tester.pumpAndSettle();
+      expect(find.byType(LocaleUpdateSheet), findsOneWidget);
+      await tester.tap(find.byKey(localeEn.key));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(FilledButton));
+      verify(mockEmitsPreference).called(1);
+      verify(mockUpdatePreferenceEn).called(1);
+    });
+    testWidgets('should back', (tester) async {
+      when(mockEmitsPreference).thenAnswer((i) => Stream.value(preferenceNone));
+      await tester.pumpApp(
+        overrides: [
+          preferenceServiceProvider.overrideWithValue(mockPreferenceService),
+        ],
+        child: const HomePage(),
       );
-      testWidgets(
-        'should back',
-        (tester) async {
-          when(mockEmitsPreference).thenAnswer(
-            (i) => Stream.value(preferenceNone),
-          );
-          await tester.pumpApp(
-            overrides: [
-              preferenceServiceProvider.overrideWithValue(
-                mockPreferenceService,
-              ),
-            ],
-            child: const HomePage(),
-          );
-          await tester.pumpAndSettle();
-          expect(find.byIcon(Icons.translate), findsOneWidget);
-          await tester.tap(find.byIcon(Icons.translate));
-          await tester.pumpAndSettle();
-          expect(find.byType(LocaleUpdateSheet), findsOneWidget);
-          // Rendered back button
-          // Because AppBar's automaticallyImplyLeading = true
-          await tester.tap(find.byType(BackButton));
-          await tester.pumpAndSettle();
-          expect(find.byType(LocaleUpdateSheet), findsNothing);
-          verify(mockEmitsPreference).called(1);
-        },
-      );
-    },
-  );
+      await tester.pumpAndSettle();
+      expect(find.byIcon(Icons.translate), findsOneWidget);
+      await tester.tap(find.byIcon(Icons.translate));
+      await tester.pumpAndSettle();
+      expect(find.byType(LocaleUpdateSheet), findsOneWidget);
+      // Rendered back button
+      // Because AppBar's automaticallyImplyLeading = true
+      await tester.tap(find.byType(BackButton));
+      await tester.pumpAndSettle();
+      expect(find.byType(LocaleUpdateSheet), findsNothing);
+      verify(mockEmitsPreference).called(1);
+    });
+  });
 }

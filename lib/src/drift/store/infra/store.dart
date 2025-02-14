@@ -26,15 +26,13 @@ class DriftStore extends _$DriftStore {
       beforeOpen: (OpeningDetails details) async {
         await customStatement('PRAGMA foreign_keys = ON');
         if (details.wasCreated) {
-          await batch(
-            (Batch instance) {
-              final date = DateTime.now();
-              instance.insert(
-                preferences,
-                PreferencesCompanion.insert(createdAt: date, updatedAt: date),
-              );
-            },
-          );
+          await batch((Batch instance) {
+            final date = DateTime.now();
+            instance.insert(
+              preferences,
+              PreferencesCompanion.insert(createdAt: date, updatedAt: date),
+            );
+          });
         }
         if (kDebugMode) {
           // この検証は他の場所で必要無いかなりの量のコードが取り込まれる

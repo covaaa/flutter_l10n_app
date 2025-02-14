@@ -6,13 +6,10 @@ void main() {
 
   setUp(() => preferences = Preferences());
 
-  test(
-    'should get props',
-    () {
-      expect(() => preferences.id, throwsUnsupportedError);
-      expect(() => preferences.locale, throwsUnsupportedError);
-      expect(() => preferences.createdAt, throwsUnsupportedError);
-      expect(() => preferences.updatedAt, throwsUnsupportedError);
-    },
-  );
+  test('should get props', () {
+    expect(() => preferences.id, throwsUnsupportedError);
+    expect(() => preferences.locale, throwsUnsupportedError);
+    expect(() => preferences.createdAt, throwsUnsupportedError);
+    expect(() => preferences.updatedAt, throwsUnsupportedError);
+  });
 }

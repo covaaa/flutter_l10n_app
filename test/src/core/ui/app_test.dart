@@ -12,33 +12,26 @@ void main() {
   late Preference preferenceEn;
   late MockPreferenceService mockPreferenceService;
 
-  setUp(
-    () {
-      fakes = Fakes();
-      preferenceEn = fakes.preferenceEn;
-      mockPreferenceService = MockPreferenceService();
-    },
-  );
+  setUp(() {
+    fakes = Fakes();
+    preferenceEn = fakes.preferenceEn;
+    mockPreferenceService = MockPreferenceService();
+  });
 
   Stream<Preference> mockEmitsPreference() {
     return mockPreferenceService.emitsPreference();
   }
 
-  testWidgets(
-    'should render home page',
-    (tester) async {
-      when(mockEmitsPreference).thenAnswer(
-        (i) => Stream.value(preferenceEn),
-      );
-      await tester.pumpApp(
-        overrides: [
-          preferenceServiceProvider.overrideWithValue(mockPreferenceService),
-        ],
-        child: const App(),
-      );
-      expect(find.byType(LoadingPage), findsOneWidget);
-      await tester.pumpAndSettle();
-      expect(find.byType(HomePage), findsOneWidget);
-    },
-  );
+  testWidgets('should render home page', (tester) async {
+    when(mockEmitsPreference).thenAnswer((i) => Stream.value(preferenceEn));
+    await tester.pumpApp(
+      overrides: [
+        preferenceServiceProvider.overrideWithValue(mockPreferenceService),
+      ],
+      child: const App(),
+    );
+    expect(find.byType(LoadingPage), findsOneWidget);
+    await tester.pumpAndSettle();
+    expect(find.byType(HomePage), findsOneWidget);
+  });
 }

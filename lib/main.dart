@@ -15,6 +15,8 @@ void main() {
         ProviderScope(observers: [RiverpodObserver()], child: const App()),
       );
     },
-    (error, stackTrace) => log('$error', stackTrace: stackTrace),
+    (error, stackTrace) {
+      log('$error', stackTrace: stackTrace);
+    },
   );
 }

@@ -15,16 +15,14 @@ void main() {
   late LocaleJa localeJa;
   late MockPreferenceService mockPreferenceService;
 
-  setUp(
-    () {
-      fakes = Fakes();
-      preferenceEn = fakes.preferenceEn;
-      preferenceJa = fakes.preferenceJa;
-      localeEn = fakes.localeEn;
-      localeJa = fakes.localeJa;
-      mockPreferenceService = MockPreferenceService();
-    },
-  );
+  setUp(() {
+    fakes = Fakes();
+    preferenceEn = fakes.preferenceEn;
+    preferenceJa = fakes.preferenceJa;
+    localeEn = fakes.localeEn;
+    localeJa = fakes.localeJa;
+    mockPreferenceService = MockPreferenceService();
+  });
 
   Future<void> mockUpdatePreferenceEn() {
     return mockPreferenceService.updatePreference(preferenceEn);
@@ -34,39 +32,33 @@ void main() {
     return mockPreferenceService.updatePreference(preferenceJa);
   }
 
-  testWidgets(
-    'should read locale en',
-    (tester) async {
-      when(mockUpdatePreferenceEn).thenAnswer((i) async {});
-      await tester.pumpApp(
-        overrides: [
-          preferenceServiceProvider.overrideWithValue(mockPreferenceService),
-        ],
-        child: LocaleUpdateSheet(preferenceJa),
-      );
-      await tester.pumpAndSettle();
-      await tester.tap(find.byKey(localeEn.key));
-      await tester.pumpAndSettle();
-      await tester.tap(find.byType(FilledButton));
-      verify(mockUpdatePreferenceEn).called(1);
-    },
-  );
+  testWidgets('should read locale en', (tester) async {
+    when(mockUpdatePreferenceEn).thenAnswer((i) async {});
+    await tester.pumpApp(
+      overrides: [
+        preferenceServiceProvider.overrideWithValue(mockPreferenceService),
+      ],
+      child: LocaleUpdateSheet(preferenceJa),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(localeEn.key));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byType(FilledButton));
+    verify(mockUpdatePreferenceEn).called(1);
+  });
 
-  testWidgets(
-    'should read locale ja',
-    (tester) async {
-      when(mockUpdatePreferenceJa).thenAnswer((i) async {});
-      await tester.pumpApp(
-        overrides: [
-          preferenceServiceProvider.overrideWithValue(mockPreferenceService),
-        ],
-        child: LocaleUpdateSheet(preferenceEn),
-      );
-      await tester.pumpAndSettle();
-      await tester.tap(find.byKey(localeJa.key));
-      await tester.pumpAndSettle();
-      await tester.tap(find.byType(FilledButton));
-      verify(mockUpdatePreferenceJa).called(1);
-    },
-  );
+  testWidgets('should read locale ja', (tester) async {
+    when(mockUpdatePreferenceJa).thenAnswer((i) async {});
+    await tester.pumpApp(
+      overrides: [
+        preferenceServiceProvider.overrideWithValue(mockPreferenceService),
+      ],
+      child: LocaleUpdateSheet(preferenceEn),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(localeJa.key));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byType(FilledButton));
+    verify(mockUpdatePreferenceJa).called(1);
+  });
 }
