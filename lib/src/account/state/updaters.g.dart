@@ -16,14 +16,15 @@ String _$updatePreferenceHash() => r'59fd6eabf570da87f7ba02dc3e57dc07b59fe849';
 @ProviderFor(UpdatePreference)
 final updatePreferenceProvider =
     AutoDisposeAsyncNotifierProvider<UpdatePreference, Option<Unit>>.internal(
-  UpdatePreference.new,
-  name: r'updatePreferenceProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$updatePreferenceHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      UpdatePreference.new,
+      name: r'updatePreferenceProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$updatePreferenceHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$UpdatePreference = AutoDisposeAsyncNotifier<Option<Unit>>;
 // ignore_for_file: type=lint

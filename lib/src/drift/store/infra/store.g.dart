@@ -16,30 +16,48 @@ class $PreferencesTable extends Preferences
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _createdAtMeta =
-      const VerificationMeta('createdAt');
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
-      'created_at', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _updatedAtMeta =
-      const VerificationMeta('updatedAt');
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
-      'updated_at', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _localeMeta = const VerificationMeta('locale');
   @override
   late final GeneratedColumnWithTypeConverter<LocaleData?, String> locale =
-      GeneratedColumn<String>('locale', aliasedName, true,
-              type: DriftSqlType.string, requiredDuringInsert: false)
-          .withConverter<LocaleData?>($PreferencesTable.$converterlocalen);
+      GeneratedColumn<String>(
+        'locale',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      ).withConverter<LocaleData?>($PreferencesTable.$converterlocalen);
   @override
   List<GeneratedColumn> get $columns => [id, createdAt, updatedAt, locale];
   @override
@@ -48,22 +66,28 @@ class $PreferencesTable extends Preferences
   String get actualTableName => $name;
   static const String $name = 'preferences';
   @override
-  VerificationContext validateIntegrity(Insertable<Preference> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<Preference> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('created_at')) {
-      context.handle(_createdAtMeta,
-          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
     } else if (isInserting) {
       context.missing(_createdAtMeta);
     }
     if (data.containsKey('updated_at')) {
-      context.handle(_updatedAtMeta,
-          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
     } else if (isInserting) {
       context.missing(_updatedAtMeta);
     }
@@ -77,15 +101,27 @@ class $PreferencesTable extends Preferences
   Preference map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Preference(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      createdAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
-      updatedAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
-      locale: $PreferencesTable.$converterlocalen.fromSql(attachedDatabase
-          .typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}locale'])),
+      id:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}id'],
+          )!,
+      createdAt:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.dateTime,
+            data['${effectivePrefix}created_at'],
+          )!,
+      updatedAt:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.dateTime,
+            data['${effectivePrefix}updated_at'],
+          )!,
+      locale: $PreferencesTable.$converterlocalen.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}locale'],
+        ),
+      ),
     );
   }
 
@@ -105,11 +141,12 @@ class Preference extends DataClass implements Insertable<Preference> {
   final DateTime createdAt;
   final DateTime updatedAt;
   final LocaleData? locale;
-  const Preference(
-      {required this.id,
-      required this.createdAt,
-      required this.updatedAt,
-      this.locale});
+  const Preference({
+    required this.id,
+    required this.createdAt,
+    required this.updatedAt,
+    this.locale,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -117,8 +154,9 @@ class Preference extends DataClass implements Insertable<Preference> {
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
     if (!nullToAbsent || locale != null) {
-      map['locale'] =
-          Variable<String>($PreferencesTable.$converterlocalen.toSql(locale));
+      map['locale'] = Variable<String>(
+        $PreferencesTable.$converterlocalen.toSql(locale),
+      );
     }
     return map;
   }
@@ -133,15 +171,18 @@ class Preference extends DataClass implements Insertable<Preference> {
     );
   }
 
-  factory Preference.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory Preference.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Preference(
       id: serializer.fromJson<int>(json['id']),
       createdAt: serializer.fromJson<DateTime>(json['created_at']),
       updatedAt: serializer.fromJson<DateTime>(json['updated_at']),
-      locale: $PreferencesTable.$converterlocalen
-          .fromJson(serializer.fromJson<String?>(json['locale'])),
+      locale: $PreferencesTable.$converterlocalen.fromJson(
+        serializer.fromJson<String?>(json['locale']),
+      ),
     );
   }
   @override
@@ -151,22 +192,23 @@ class Preference extends DataClass implements Insertable<Preference> {
       'id': serializer.toJson<int>(id),
       'created_at': serializer.toJson<DateTime>(createdAt),
       'updated_at': serializer.toJson<DateTime>(updatedAt),
-      'locale': serializer
-          .toJson<String?>($PreferencesTable.$converterlocalen.toJson(locale)),
+      'locale': serializer.toJson<String?>(
+        $PreferencesTable.$converterlocalen.toJson(locale),
+      ),
     };
   }
 
-  Preference copyWith(
-          {int? id,
-          DateTime? createdAt,
-          DateTime? updatedAt,
-          Value<LocaleData?> locale = const Value.absent()}) =>
-      Preference(
-        id: id ?? this.id,
-        createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt,
-        locale: locale.present ? locale.value : this.locale,
-      );
+  Preference copyWith({
+    int? id,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    Value<LocaleData?> locale = const Value.absent(),
+  }) => Preference(
+    id: id ?? this.id,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    locale: locale.present ? locale.value : this.locale,
+  );
   Preference copyWithCompanion(PreferencesCompanion data) {
     return Preference(
       id: data.id.present ? data.id.value : this.id,
@@ -215,8 +257,8 @@ class PreferencesCompanion extends UpdateCompanion<Preference> {
     required DateTime createdAt,
     required DateTime updatedAt,
     this.locale = const Value.absent(),
-  })  : createdAt = Value(createdAt),
-        updatedAt = Value(updatedAt);
+  }) : createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
   static Insertable<Preference> custom({
     Expression<int>? id,
     Expression<DateTime>? createdAt,
@@ -231,11 +273,12 @@ class PreferencesCompanion extends UpdateCompanion<Preference> {
     });
   }
 
-  PreferencesCompanion copyWith(
-      {Value<int>? id,
-      Value<DateTime>? createdAt,
-      Value<DateTime>? updatedAt,
-      Value<LocaleData?>? locale}) {
+  PreferencesCompanion copyWith({
+    Value<int>? id,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+    Value<LocaleData?>? locale,
+  }) {
     return PreferencesCompanion(
       id: id ?? this.id,
       createdAt: createdAt ?? this.createdAt,
@@ -258,7 +301,8 @@ class PreferencesCompanion extends UpdateCompanion<Preference> {
     }
     if (locale.present) {
       map['locale'] = Variable<String>(
-          $PreferencesTable.$converterlocalen.toSql(locale.value));
+        $PreferencesTable.$converterlocalen.toSql(locale.value),
+      );
     }
     return map;
   }
@@ -289,20 +333,20 @@ abstract class _$DriftStore extends GeneratedDatabase {
       const DriftDatabaseOptions(storeDateTimeAsText: true);
 }
 
-typedef $$PreferencesTableCreateCompanionBuilder = PreferencesCompanion
-    Function({
-  Value<int> id,
-  required DateTime createdAt,
-  required DateTime updatedAt,
-  Value<LocaleData?> locale,
-});
-typedef $$PreferencesTableUpdateCompanionBuilder = PreferencesCompanion
-    Function({
-  Value<int> id,
-  Value<DateTime> createdAt,
-  Value<DateTime> updatedAt,
-  Value<LocaleData?> locale,
-});
+typedef $$PreferencesTableCreateCompanionBuilder =
+    PreferencesCompanion Function({
+      Value<int> id,
+      required DateTime createdAt,
+      required DateTime updatedAt,
+      Value<LocaleData?> locale,
+    });
+typedef $$PreferencesTableUpdateCompanionBuilder =
+    PreferencesCompanion Function({
+      Value<int> id,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<LocaleData?> locale,
+    });
 
 class $$PreferencesTableFilterComposer
     extends Composer<_$DriftStore, $PreferencesTable> {
@@ -314,18 +358,25 @@ class $$PreferencesTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<DateTime> get createdAt => $composableBuilder(
-      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnWithTypeConverterFilters<LocaleData?, LocaleData, String> get locale =>
       $composableBuilder(
-          column: $table.locale,
-          builder: (column) => ColumnWithTypeConverterFilters(column));
+        column: $table.locale,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
 }
 
 class $$PreferencesTableOrderingComposer
@@ -338,16 +389,24 @@ class $$PreferencesTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<DateTime> get createdAt => $composableBuilder(
-      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
-      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get locale => $composableBuilder(
-      column: $table.locale, builder: (column) => ColumnOrderings(column));
+    column: $table.locale,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$PreferencesTableAnnotationComposer
@@ -372,71 +431,89 @@ class $$PreferencesTableAnnotationComposer
       $composableBuilder(column: $table.locale, builder: (column) => column);
 }
 
-class $$PreferencesTableTableManager extends RootTableManager<
-    _$DriftStore,
-    $PreferencesTable,
-    Preference,
-    $$PreferencesTableFilterComposer,
-    $$PreferencesTableOrderingComposer,
-    $$PreferencesTableAnnotationComposer,
-    $$PreferencesTableCreateCompanionBuilder,
-    $$PreferencesTableUpdateCompanionBuilder,
-    (Preference, BaseReferences<_$DriftStore, $PreferencesTable, Preference>),
-    Preference,
-    PrefetchHooks Function()> {
+class $$PreferencesTableTableManager
+    extends
+        RootTableManager<
+          _$DriftStore,
+          $PreferencesTable,
+          Preference,
+          $$PreferencesTableFilterComposer,
+          $$PreferencesTableOrderingComposer,
+          $$PreferencesTableAnnotationComposer,
+          $$PreferencesTableCreateCompanionBuilder,
+          $$PreferencesTableUpdateCompanionBuilder,
+          (
+            Preference,
+            BaseReferences<_$DriftStore, $PreferencesTable, Preference>,
+          ),
+          Preference,
+          PrefetchHooks Function()
+        > {
   $$PreferencesTableTableManager(_$DriftStore db, $PreferencesTable table)
-      : super(TableManagerState(
+    : super(
+        TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () =>
-              $$PreferencesTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $$PreferencesTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $$PreferencesTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<DateTime> createdAt = const Value.absent(),
-            Value<DateTime> updatedAt = const Value.absent(),
-            Value<LocaleData?> locale = const Value.absent(),
-          }) =>
-              PreferencesCompanion(
-            id: id,
-            createdAt: createdAt,
-            updatedAt: updatedAt,
-            locale: locale,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required DateTime createdAt,
-            required DateTime updatedAt,
-            Value<LocaleData?> locale = const Value.absent(),
-          }) =>
-              PreferencesCompanion.insert(
-            id: id,
-            createdAt: createdAt,
-            updatedAt: updatedAt,
-            locale: locale,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
-              .toList(),
+          createFilteringComposer:
+              () => $$PreferencesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer:
+              () => $$PreferencesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer:
+              () =>
+                  $$PreferencesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<LocaleData?> locale = const Value.absent(),
+              }) => PreferencesCompanion(
+                id: id,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                locale: locale,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required DateTime createdAt,
+                required DateTime updatedAt,
+                Value<LocaleData?> locale = const Value.absent(),
+              }) => PreferencesCompanion.insert(
+                id: id,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                locale: locale,
+              ),
+          withReferenceMapper:
+              (p0) =>
+                  p0
+                      .map(
+                        (e) => (
+                          e.readTable(table),
+                          BaseReferences(db, table, e),
+                        ),
+                      )
+                      .toList(),
           prefetchHooksCallback: null,
-        ));
+        ),
+      );
 }
 
-typedef $$PreferencesTableProcessedTableManager = ProcessedTableManager<
-    _$DriftStore,
-    $PreferencesTable,
-    Preference,
-    $$PreferencesTableFilterComposer,
-    $$PreferencesTableOrderingComposer,
-    $$PreferencesTableAnnotationComposer,
-    $$PreferencesTableCreateCompanionBuilder,
-    $$PreferencesTableUpdateCompanionBuilder,
-    (Preference, BaseReferences<_$DriftStore, $PreferencesTable, Preference>),
-    Preference,
-    PrefetchHooks Function()>;
+typedef $$PreferencesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$DriftStore,
+      $PreferencesTable,
+      Preference,
+      $$PreferencesTableFilterComposer,
+      $$PreferencesTableOrderingComposer,
+      $$PreferencesTableAnnotationComposer,
+      $$PreferencesTableCreateCompanionBuilder,
+      $$PreferencesTableUpdateCompanionBuilder,
+      (Preference, BaseReferences<_$DriftStore, $PreferencesTable, Preference>),
+      Preference,
+      PrefetchHooks Function()
+    >;
 
 class $DriftStoreManager {
   final _$DriftStore _db;

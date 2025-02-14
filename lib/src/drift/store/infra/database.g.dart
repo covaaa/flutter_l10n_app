@@ -17,9 +17,10 @@ String _$driftDatabaseHash() => r'8f1bb4dbacf1f282cabd716efda3abf60287ea48';
 final driftDatabaseProvider = AutoDisposeProvider<QueryExecutor>.internal(
   driftDatabase,
   name: r'driftDatabaseProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$driftDatabaseHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$driftDatabaseHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

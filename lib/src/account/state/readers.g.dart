@@ -17,9 +17,10 @@ String _$readPreferenceHash() => r'496c05cfd4f632a6de2f4a1a24748a13378ce330';
 final readPreferenceProvider = AutoDisposeStreamProvider<Preference>.internal(
   readPreference,
   name: r'readPreferenceProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$readPreferenceHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$readPreferenceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
