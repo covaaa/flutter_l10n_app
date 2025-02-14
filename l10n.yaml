@@ -1,3 +1,4 @@
+format: true
 nullable-getter: false
 synthetic-package: false
 arb-dir: lib/gen/l10n/infra

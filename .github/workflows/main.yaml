@@ -9,7 +9,7 @@ jobs:
   build:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
-      format_directories: "lib/src test"
+      # format_directories: "lib/src test"
       coverage_excludes: ""
       flutter_version: ""
       setup: |
