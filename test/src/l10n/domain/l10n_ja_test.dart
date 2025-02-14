@@ -1,12 +1,10 @@
-import 'package:flutter_l10n_app/gen/l10n/domain/l10n_ja.dart';
+import 'package:flutter_l10n_app/src/l10n/l10n.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   late L10nJa l10n;
 
-  setUp(() {
-    l10n = L10nJa();
-  });
+  setUp(() => l10n = L10nJa());
 
   test('should get values', () {
     expect(l10n.locale, '日本語');

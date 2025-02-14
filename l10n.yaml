@@ -1,8 +1,8 @@
 format: true
 nullable-getter: false
 synthetic-package: false
-arb-dir: lib/gen/l10n/infra
-output-dir: lib/gen/l10n/domain
+arb-dir: lib/src/l10n/infra
+output-dir: lib/src/l10n/domain
 template-arb-file: l10n_en.arb
 output-localization-file: l10n.dart
 output-class: L10n

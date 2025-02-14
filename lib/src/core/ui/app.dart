@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_l10n_app/gen/l10n/l10n.dart';
 import 'package:flutter_l10n_app/src/account/account.dart';
 import 'package:flutter_l10n_app/src/core/ui/loading.dart';
 import 'package:flutter_l10n_app/src/home/home_page.dart';
+import 'package:flutter_l10n_app/src/l10n/l10n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class App extends ConsumerWidget {
