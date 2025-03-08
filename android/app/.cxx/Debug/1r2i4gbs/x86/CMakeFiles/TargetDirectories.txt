@@ -1,2 +1,0 @@
-/Users/cova/projects/flutter_l10n_app/android/app/.cxx/Debug/1r2i4gbs/x86/CMakeFiles/edit_cache.dir
-/Users/cova/projects/flutter_l10n_app/android/app/.cxx/Debug/1r2i4gbs/x86/CMakeFiles/rebuild_cache.dir
